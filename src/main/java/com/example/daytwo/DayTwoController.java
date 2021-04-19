@@ -1,5 +1,6 @@
 package com.example.daytwo;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,11 @@ public class DayTwoController {
         return ResponseEntity.ok(journal.getTagged(tag));
     }
 
+    @PostMapping("/saveTagged")
+    public ResponseEntity<List<Entry>> saveTagged(@RequestBody DayTwoForm form) {
+        return ResponseEntity.ok(journal.saveTagged(Arrays.asList(form.getEntries()), Arrays.asList(form.getTags())));
+    }
+
     @PostMapping("/new")
     public ResponseEntity<Entry> newEntry(@RequestBody Entry requestEntry) {
         return ResponseEntity.ok(journal.save(requestEntry));
@@ -41,5 +47,10 @@ public class DayTwoController {
     @PostMapping("/news")
     public ResponseEntity<List<Entry>> newEntries(@RequestBody List<Entry> requestEntries) {
         return ResponseEntity.ok(journal.saveAll(requestEntries));
+    }
+
+    @PostMapping("/updateEntry/{uuid}")
+    public ResponseEntity<Entry> updateEntry(@PathVariable(value="uuid") String uuid, @RequestBody Entry requestEntry) {
+        return ResponseEntity.ok(journal.update(uuid, requestEntry));
     }
 }

@@ -6,4 +6,6 @@ import lombok.Data;
 public class DayTwoForm {
     String tagToReplace;
     String tagToReplaceWith;
+    Entry[] entries;
+    String[] tags;
 }

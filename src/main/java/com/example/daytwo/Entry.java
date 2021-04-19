@@ -1,5 +1,6 @@
 package com.example.daytwo;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -19,35 +20,37 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Entry {
     
-    // promptID
-    // weather
-    //   moonPhaseCode
-    //   sunsetDate
-    //   weatherServiceName
-    //   weatherCode
-    //   temperatureCelsius (float)
-    //   windBearing (int)
-    //   sunriseDate
-    //   conditionsDescription
-    //   pressureMB (int)
-    //   moonPhase (float)
-    //   visibilityKM (float)
-    //   relativeHumidity (int)
-    //   windSpeedKPH (int)
-    //   windChillCelsius (float)
-    // location
-    //   region
-    //     center
-    //       longitude (float)
-    //       latitude (float)
-    //     radius (int)
-    //   localityName
-    //   country
-    //   timeZoneName
-    //   administrativeArea
-    //   longitude (float)
-    //   placeName
-    //   latitude (float)
+    /**
+     * promptID
+     * weather
+     *   moonPhaseCode
+     *   sunsetDate
+     *   weatherServiceName
+     *   weatherCode
+     *   temperatureCelsius (float)
+     *   windBearing (int)
+     *   sunriseDate
+     *   conditionsDescription
+     *   pressureMB (int)
+     *   moonPhase (float)
+     *   visibilityKM (float)
+     *   relativeHumidity (int)
+     *   windSpeedKPH (int)
+     *   windChillCelsius (float)
+     * location
+     *   region
+     *     center
+     *       longitude (float)
+     *       latitude (float)
+     *     radius (int)
+     *   localityName
+     *   country
+     *   timeZoneName
+     *   administrativeArea
+     *   longitude (float)
+     *   placeName
+     *   latitude (float)
+     */
     
     @Id
     String uuid;
@@ -70,6 +73,13 @@ public class Entry {
     float editingTime;
     int duration;
     String timeZone;
+
+    static List<String> searchableFields;
+
+    static {
+        searchableFields = new ArrayList<>();
+        searchableFields.add("creationDevice");
+    }
 
     public Entry stringifyTags() {
         if (tags.size() > 0) {
