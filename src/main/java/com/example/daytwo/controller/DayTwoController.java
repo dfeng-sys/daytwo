@@ -1,7 +1,11 @@
-package com.example.daytwo;
+package com.example.daytwo.controller;
 
 import java.util.Arrays;
 import java.util.List;
+
+import com.example.daytwo.DayTwoForm;
+import com.example.daytwo.domain.Entry;
+import com.example.daytwo.service.DayTwoService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -52,5 +56,10 @@ public class DayTwoController {
     @PostMapping("/updateEntry/{uuid}")
     public ResponseEntity<Entry> updateEntry(@PathVariable(value="uuid") String uuid, @RequestBody Entry requestEntry) {
         return ResponseEntity.ok(journal.update(uuid, requestEntry));
+    }
+
+    @PostMapping("/v2/new")
+    public ResponseEntity<Entry> newEntryV2(@RequestBody Entry requestEntry) {
+        return ResponseEntity.ok(journal.save(requestEntry));
     }
 }

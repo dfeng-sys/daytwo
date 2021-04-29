@@ -1,8 +1,11 @@
-package com.example.daytwo;
+package com.example.daytwo.service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+
+import com.example.daytwo.domain.Entry;
+import com.example.daytwo.repo.EntryRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,7 +30,7 @@ public class DayTwoService {
         List<Entry> taggedEntries = new ArrayList<>(es);
         for (Entry e : es) {
             for (String tag : tags) {
-                if (!e.tags.contains(tag)) {
+                if (!e.getTags().contains(tag)) {
                     r++;
                     taggedEntries.remove(e);
                     break;
@@ -59,16 +62,6 @@ public class DayTwoService {
     }
 
     public List<Entry> getTagged(String tag) {
-        // Entry entryExample = new Entry();
-        // entryExample.setTagString(tag);
-        // Example<Entry> example = Example.of(
-        //     entryExample,
-        //     ExampleMatcher.matchingAll().withMatcher(
-        //         "tagString",
-        //         ExampleMatcher.GenericPropertyMatchers.contains().caseSensitive()
-        //     )
-        // );
-        // List<Entry> entries = repo.findAll(example);
         List<Entry> entries = repo.findByTagStringContaining(tag);
         for (Entry entry : entries) entry.listifyTags();
         return entries;

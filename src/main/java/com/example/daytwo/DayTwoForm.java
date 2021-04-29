@@ -1,5 +1,7 @@
 package com.example.daytwo;
 
+import com.example.daytwo.domain.Entry;
+
 import lombok.Data;
 
 @Data

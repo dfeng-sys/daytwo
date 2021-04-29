@@ -1,4 +1,4 @@
-package com.example.daytwo;
+package com.example.daytwo.domain;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
