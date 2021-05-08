@@ -6,6 +6,7 @@ import java.util.List;
 import com.example.daytwo.DayTwoForm;
 import com.example.daytwo.domain.Entry;
 import com.example.daytwo.service.DayTwoService;
+import com.example.daytwo.service.DayTwoServiceV2;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,62 +18,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/day2")
-public class DayTwoController {
+@RequestMapping("/day2/v2")
+public class DayTwoControllerV2 {
 
     @Autowired
-    DayTwoService journal;
+    DayTwoServiceV2 journal;
     
-    @PostMapping("/replaceTag")
-    public ResponseEntity<List<Entry>> replaceTag(@RequestBody DayTwoForm form) {
-        return ResponseEntity.ok(
-            journal.replaceTag(
-                form.getTagToReplace(),
-                form.getTagToReplaceWith()
-            )
-        );
-    }
+    // @PostMapping("/renameTag")
 
-    /**
-     * get all entries with the given tag
-     */
     @GetMapping("/tagged/{tag}")
     public ResponseEntity<List<Entry>> getTagged(@PathVariable(value = "tag") String tag) {
-        return ResponseEntity.ok(journal.getTagged(tag));
+        return ResponseEntity.badRequest().build();
     }
 
-    @GetMapping("/getAllTags")
-    public ResponseEntity<Set<String>> getAllTags() {
-        return ResponseEntity.ok(journal.getAllTags());
-    }
-
-    /**
-     * save only those entries with one or more of the given tags
-     */
     @PostMapping("/saveTagged")
     public ResponseEntity<List<Entry>> saveTagged(@RequestBody DayTwoForm form) {
         return ResponseEntity.ok(journal.saveTagged(Arrays.asList(form.getEntries()), Arrays.asList(form.getTags())));
     }
 
-    /**
-     * saves a new entry
-     */
     @PostMapping("/new")
-    public ResponseEntity<Entry> newEntry(@RequestBody Entry requestEntry) {
-        return ResponseEntity.ok(journal.save(requestEntry));
-    }
-
-    /**
-     * saves new entries
-     */
-    @PostMapping("/news")
     public ResponseEntity<List<Entry>> newEntries(@RequestBody List<Entry> requestEntries) {
         return ResponseEntity.ok(journal.saveAll(requestEntries));
     }
 
-    /**
-     * updates an entry specified by the given uuid with new information
-     */
     @PostMapping("/updateEntry/{uuid}")
     public ResponseEntity<Entry> updateEntry(@PathVariable(value="uuid") String uuid, @RequestBody Entry requestEntry) {
         return ResponseEntity.ok(journal.update(uuid, requestEntry));

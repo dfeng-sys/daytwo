@@ -20,9 +20,11 @@ public class EntryTag {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    String id;
+    int id;
 
     String entryId;
     
-    String tagId;
+    int tagId;
+
+    String tagName;
 }
