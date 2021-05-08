@@ -2,6 +2,7 @@ package com.example.daytwo.controller;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 import com.example.daytwo.DayTwoForm;
 import com.example.daytwo.domain.Entry;
@@ -23,8 +24,11 @@ public class DayTwoController {
     @Autowired
     DayTwoService journal;
     
+    /**
+     * renames a tag, updating all entries with that tag with new tag name
+     */
     @PostMapping("/replaceTag")
-    public ResponseEntity<List<Entry>> replaceTag(@RequestBody DayTwoForm form) {
+    public ResponseEntity<List<Entry>> replaceTag(@RequestBody DayTwoForm.TagReplace form) {
         return ResponseEntity.ok(
             journal.replaceTag(
                 form.getTagToReplace(),

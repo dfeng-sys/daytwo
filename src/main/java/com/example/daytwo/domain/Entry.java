@@ -81,6 +81,16 @@ public class Entry {
         searchableFields.add("creationDevice");
     }
 
+    public static List<Entry> listifyTags(List<Entry> entries) {
+        for (Entry entry : entries) entry.listifyTags();
+        return entries;
+    }
+
+    public static List<Entry> stringifyTags(List<Entry> entries) {
+        for (Entry entry : entries) entry.stringifyTags();
+        return entries;
+    }
+
     public Entry stringifyTags() {
         if (tags.size() > 0) {
             tagString = "";
@@ -93,9 +103,9 @@ public class Entry {
     }
     
     public Entry listifyTags() {
+        if (tags == null) tags = new LinkedList<>();
         if (tagString != null) {
             String[] tagArray = tagString.split("\\|");
-            if (tags == null) tags = new LinkedList<>();
             for (String tag : tagArray) {
                 if (!tags.contains(tag)) {
                     tags.add(tag);
